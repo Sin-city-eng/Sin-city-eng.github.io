@@ -1,434 +1,1356 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rattasurd Sirasen (Sin) | Y2K Metallic Portfolio</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Prompt:wght@300;400;600&display=swap');
 
+    <title>Rattasurd Sirasen— Creative Portfolio</title>
+
+    <meta
+        name="description"
+        content="Portfolio of Takdanai Ramchuen — 3D modeling, manga illustration, animation, character design and visual development."
+    >
+
+    <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Hide default cursor */
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #030303;
-            color: #ffffff;
-            font-family: 'Prompt', sans-serif;
+            background: #070707;
+            color: #f2f2f2;
+            font-family: Arial, Helvetica, sans-serif;
             overflow-x: hidden;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-            background-size: 8px 8px; /* Dotted Halftone Pattern background */
         }
 
-        /* WebGL Background */
-        #webgl-container {
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           THREE.JS BACKGROUND
+        ========================= */
+
+        #three-container {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+        }
+
+        #three-container canvas {
+            display: block;
+        }
+
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    rgba(255,255,255,0.055),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    to bottom,
+                    rgba(0,0,0,0.25),
+                    rgba(0,0,0,0.85)
+                );
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Y2K Custom Chrome Cursor */
-        #custom-cursor {
-            position: fixed;
-            width: 32px;
-            height: 32px;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.05s ease-out;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
-        }
-
-        #custom-cursor::before {
-            content: '✦';
-            position: absolute;
-            font-size: 24px;
-            color: #ffffff;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-shadow: 0 0 10px #ffffff, 0 0 20px #808080;
-        }
-
-        /* Single Page Scroll Overlay */
-        .scroll-container {
-            position: relative;
-            z-index: 10;
             width: 100%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 25px 6vw;
+
+            z-index: 20;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.7),
+                transparent
+            );
+
+            backdrop-filter: blur(3px);
         }
 
-        .section {
+        .logo {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.65;
+            transition: opacity 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        section {
             min-height: 100vh;
+            padding: 120px 8vw;
+            position: relative;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: clamp(42px, 7vw, 100px);
+            line-height: 0.95;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        .muted {
+            opacity: 0.55;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        #home {
+            min-height: 100vh;
+
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 4rem 2rem;
-            position: relative;
+
+            padding-left: 10vw;
         }
 
-        /* Y2K Chrome Metal Card with Tribal Sharp Edges */
-        .chrome-card {
-            background: rgba(10, 10, 12, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            /* Tribal Sharp Corner Cuts */
-            clip-path: polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
-            padding: 3rem;
-            max-width: 850px;
-            width: 90%;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.2);
-            position: relative;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .chrome-card:hover {
-            border-color: #ffffff;
-            transform: scale(1.01);
-        }
-
-        /* Metallic Acid Typography */
-        .chrome-title {
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
+        .hero-small {
+            font-size: 13px;
+            letter-spacing: 0.35em;
             text-transform: uppercase;
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            line-height: 1;
-            letter-spacing: 4px;
-            background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 35%, #4a4a4a 48%, #ffffff 52%, #888888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
-            margin-bottom: 0.5rem;
+            opacity: 0.55;
+            margin-bottom: 25px;
         }
 
-        .subtitle {
-            font-family: 'Orbitron', sans-serif;
-            color: #e0e0e0;
-            letter-spacing: 3px;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        .hero-name {
+            font-size: clamp(55px, 11vw, 170px);
+            line-height: 0.82;
+            letter-spacing: -0.075em;
+            max-width: 1000px;
         }
 
-        p {
+        .hero-name span {
+            display: block;
+            opacity: 0.38;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin-top: 45px;
+
+            font-size: 16px;
             line-height: 1.8;
-            color: #d1d1d1;
-            font-weight: 300;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+
+            color: rgba(255,255,255,0.65);
         }
 
-        /* Y2K Star Elements */
-        .y2k-star-icon {
-            position: absolute;
-            font-size: 2rem;
-            color: #ffffff;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
-            animation: rotateStar 4s infinite linear;
+        .hero-button {
+            display: inline-flex;
+            margin-top: 40px;
+
+            padding: 15px 24px;
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease,
+                border 0.3s ease;
         }
 
-        @keyframes rotateStar {
-            0% { transform: rotate(0deg) scale(0.9); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(0.9); }
-        }
-
-        .tag-badge {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-family: 'Orbitron', sans-serif;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 4px;
-            color: #aaaaaa;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-            40% { transform: translate(-50%, -10px); }
-            60% { transform: translate(-50%, -5px); }
-        }
-
-        .btn-chrome {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.8rem 2rem;
+        .hero-button:hover {
+            background: #fff;
             color: #000;
-            background: linear-gradient(180deg, #ffffff 0%, #b0b0b0 100%);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            text-decoration: none;
-            letter-spacing: 2px;
-            border: none;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            transition: all 0.3s ease;
+            border-color: #fff;
         }
 
-        .btn-chrome:hover {
-            background: #ffffff;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
+        .scroll-indicator {
+            position: absolute;
+            bottom: 35px;
+            left: 10vw;
+
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+
+            opacity: 0.35;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        #about {
+            display: flex;
+            align-items: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10vw;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .about-text {
+            font-size: 20px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .about-text strong {
+            color: #fff;
+        }
+
+        .about-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 35px;
+        }
+
+        .detail {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 18px;
+        }
+
+        .detail-title {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 8px;
+        }
+
+        .detail-value {
+            font-size: 18px;
+        }
+
+        /* =========================
+           SKILLS
+        ========================= */
+
+        #skills {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .skills-list {
+            margin-top: 80px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .skill {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            align-items: center;
+
+            padding: 28px 0;
+
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+
+            transition: padding 0.3s ease;
+        }
+
+        .skill:hover {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .skill-number {
+            font-size: 11px;
+            opacity: 0.35;
+        }
+
+        .skill-name {
+            font-size: clamp(24px, 4vw, 55px);
+            letter-spacing: -0.04em;
+        }
+
+        .skill-type {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        /* =========================
+           WORKS
+        ========================= */
+
+        #works {
+            padding-top: 150px;
+        }
+
+        .works-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            margin-bottom: 80px;
+        }
+
+        .works-note {
+            max-width: 300px;
+            font-size: 13px;
+            line-height: 1.7;
+            opacity: 0.45;
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+
+            max-width: 1400px;
+        }
+
+        .work {
+            position: relative;
+
+            min-height: 500px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.08),
+                    rgba(255,255,255,0.015)
+                );
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            transition:
+                transform 0.4s ease,
+                border-color 0.4s ease;
+        }
+
+        .work:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .work-image {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 70px;
+            font-weight: 700;
+
+            letter-spacing: -0.08em;
+
+            opacity: 0.07;
+
+            transition:
+                transform 0.6s ease,
+                opacity 0.6s ease;
+        }
+
+        .work:hover .work-image {
+            transform: scale(1.08);
+            opacity: 0.13;
+        }
+
+        .work-info {
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+        }
+
+        .work-number {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            opacity: 0.4;
+            margin-bottom: 10px;
+        }
+
+        .work-title {
+            font-size: 32px;
+            letter-spacing: -0.04em;
+        }
+
+        .work-description {
+            margin-top: 10px;
+            font-size: 12px;
+            line-height: 1.6;
+            opacity: 0.45;
+            max-width: 400px;
+        }
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        #contact {
+            min-height: 80vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-title {
+            font-size: clamp(50px, 10vw, 150px);
+            letter-spacing: -0.07em;
+            line-height: 0.85;
+            max-width: 1000px;
+        }
+
+        .contact-description {
+            margin-top: 35px;
+            max-width: 500px;
+
+            font-size: 16px;
+            line-height: 1.7;
+
+            opacity: 0.5;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 25px;
+            margin-top: 45px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 7px;
+
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+
+            opacity: 0.65;
+
+            transition: opacity 0.25s ease;
+        }
+
+        .contact-link:hover {
+            opacity: 1;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 30px 8vw;
+
+            display: flex;
+            justify-content: space-between;
+
+            border-top: 1px solid rgba(255,255,255,0.1);
+
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+
+            opacity: 0.3;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 20px 5vw;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links li:nth-child(2) {
+                display: none;
+            }
+
+            section {
+                padding-left: 7vw;
+                padding-right: 7vw;
+            }
+
+            #home {
+                padding-left: 7vw;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .about-text {
+                font-size: 17px;
+            }
+
+            .skill {
+                grid-template-columns: 45px 1fr;
+            }
+
+            .skill-type {
+                display: none;
+            }
+
+            .works-header {
+                display: block;
+            }
+
+            .works-note {
+                margin-top: 25px;
+            }
+
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work {
+                min-height: 400px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
-    <!-- Three.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
+
 <body>
 
-    <!-- Y2K Custom Chrome Mouse Cursor -->
-    <div id="custom-cursor"></div>
+    <!-- Three.js background -->
+    <div id="three-container"></div>
+    <div class="background-overlay"></div>
 
-    <!-- 3D Canvas Background -->
-    <div id="webgl-container"></div>
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">
+            TR
+        </a>
 
-    <!-- Single Page Scroll Content -->
-    <div class="scroll-container">
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#works">Works</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <!-- SECTION 1: HERO PORTFOLIO -->
-        <section class="section">
-            <div class="chrome-card" style="text-align: center;">
-                <span class="y2k-star-icon" style="top: -10px; left: -10px;">✦</span>
-                <span class="y2k-star-icon" style="bottom: -10px; right: -10px;">✦</span>
-                <h1 class="chrome-title">PORTFOLIO</h1>
-                <div class="subtitle">RATTASURD SIRASEN — "SIN"</div>
-                <p style="font-weight: 600; letter-spacing: 2px; color: #ffffff;">INTERN 3D ARTIST / CONCEPT DESIGNER</p>
-                <div style="margin-top: 1.5rem;">
-                    <span class="tag-badge">CHROME AESTHETIC</span>
-                    <span class="tag-badge">CYBERPUNK DESIGN</span>
-                    <span class="tag-badge">3D COMPOSITION</span>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section id="home">
+
+        <div class="hero-small">
+            Creative Portfolio / 2026
+        </div>
+
+        <h1 class="hero-name">
+            Takdanai
+            <span>Ramchuen</span>
+        </h1>
+
+        <p class="hero-description">
+            I am a creative individual with experience in 3D modeling
+            and a strong interest in manga drawing and animation.
+            I enjoy developing visual ideas through illustration,
+            character design, and 3D work, while continuously improving
+            my technical and artistic skills.
+        </p>
+
+        <a href="#works" class="hero-button">
+            Explore my work
+        </a>
+
+        <div class="scroll-indicator">
+            Scroll to explore ↓
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <section id="about">
+
+        <div class="about-grid">
+
+            <div>
+                <div class="section-label">
+                    01 / Introduction
                 </div>
-            </div>
-            <div class="scroll-hint">▼ SCROLL TO EXPLORE WORK ▼</div>
-        </section>
 
-        <!-- SECTION 2: ABOUT / STYLE CONCEPT -->
-        <section class="section">
-            <div class="chrome-card">
-                <span class="y2k-star-icon" style="top: 15px; right: 20px;">✦</span>
-                <h2 class="chrome-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">01 / AESTHETIC</h2>
-                <div class="subtitle">Y2K / METALLIC ACID GRAPHIC CONCEPT</div>
-                <p>
-                    เน้นการนำเสนอผ่านงานภาพสไตล์ <strong>Y2K Chrome Metallic</strong> ที่มีเอกลักษณ์จากเส้นสายรูปทรงโลหะไหลเงาวาว (Liquid Chrome Shapes), ลายกราฟิกวิวัฒน์มุมแหลม (Tribal Sharp Edges) ผสานกับฉากหลัง Dotted Halftone Pattern และการจัดวางองค์ประกอบแบบ 3D Composition คุณภาพสูง
+                <h2 class="section-title">
+                    About<br>
+                    <span class="muted">Me</span>
+                </h2>
+            </div>
+
+            <div class="about-details">
+
+                <p class="about-text">
+                    I enjoy turning ideas into visual work through
+                    <strong>illustration, character design, animation,
+                    and 3D modeling.</strong>
+                    My goal is to continue developing both my artistic
+                    and technical skills while building a portfolio
+                    of meaningful visual projects.
                 </p>
+
+                <div class="detail">
+                    <div class="detail-title">
+                        Focus
+                    </div>
+
+                    <div class="detail-value">
+                        Illustration / Animation / 3D
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <div class="detail-title">
+                        Current Direction
+                    </div>
+
+                    <div class="detail-value">
+                        Visual Development & Creative Work
+                    </div>
+                </div>
+
             </div>
-        </section>
 
-        <!-- SECTION 3: FEATURED PROJECTS -->
-        <section class="section">
-            <div class="chrome-card">
-                <span class="y2k-star-icon" style="bottom: 15px; left: 20px;">✦</span>
-                <h2 class="chrome-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">02 / PROJECTS</h2>
-                <div class="subtitle">FEATURED 3D & DIGITAL COMPOSITIONS</div>
-                <p>
-                    <strong>• Cyberpunk Thai Literature (Phra Aphai Mani):</strong> ออกแบบปกเกมและโลโก้ในธีมอนาคต Cyberpunk โดยประยุกต์องค์ประกอบจากวรรณคดีไทย (พระอภัยมณีเป่าปี่)<br><br>
-                    <strong>• Medieval Costume Face-Swap & T-Pose:</strong> งานดัดแปลงใบหน้า ตัดต่อเครื่องแต่งกายยุคกลาง และการจัดองค์ประกอบ 3D Asset
-                </p>
-                <a href="https://www.canva.com/design/DAHUTknG0rs/DZgmxJ9zg1hgUz_mbBs_tA/edit" target="_blank" class="btn-chrome">
-                    VIEW CANVA PRESENTATION ✦
-                </a>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SKILLS
+    ========================== -->
+
+    <section id="skills">
+
+        <div class="section-label">
+            02 / Capabilities
+        </div>
+
+        <h2 class="section-title">
+            What I<br>
+            <span class="muted">Create</span>
+        </h2>
+
+        <div class="skills-list">
+
+            <div class="skill">
+                <div class="skill-number">01</div>
+                <div class="skill-name">3D Modeling</div>
+                <div class="skill-type">Technical / Visual</div>
             </div>
-        </section>
 
-        <!-- SECTION 4: CONTACT -->
-        <section class="section">
-            <div class="chrome-card" style="text-align: center;">
-                <h2 class="chrome-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">03 / CONTACT</h2>
-                <div class="subtitle">GET IN TOUCH FOR INTERNSHIP</div>
-                <p>พร้อมสร้างสรรค์งานออกแบบ 3D VisCom / Graphic Design คุณภาพสูงร่วมกับทีม</p>
-                <div class="tag-badge" style="font-size: 1rem; padding: 0.8rem 2rem;">NAME: RATTASURD SIRASEN (SIN)</div>
+            <div class="skill">
+                <div class="skill-number">02</div>
+                <div class="skill-name">Manga Illustration</div>
+                <div class="skill-type">2D Art</div>
             </div>
-        </section>
 
-    </div>
+            <div class="skill">
+                <div class="skill-number">03</div>
+                <div class="skill-name">Animation</div>
+                <div class="skill-type">Motion</div>
+            </div>
 
-    <script>
-        // --- 1. CUSTOM MOUSE CURSOR TRACKING ---
-        const cursor = document.getElementById('custom-cursor');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
+            <div class="skill">
+                <div class="skill-number">04</div>
+                <div class="skill-name">Character Design</div>
+                <div class="skill-type">Concept</div>
+            </div>
 
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+            <div class="skill">
+                <div class="skill-number">05</div>
+                <div class="skill-name">Visual Development</div>
+                <div class="skill-type">Creative</div>
+            </div>
 
-        function updateCursor() {
-            cursorX += (mouseX - cursorX) * 0.25;
-            cursorY += (mouseY - cursorY) * 0.25;
-            cursor.style.left = `${cursorX}px`;
-            cursor.style.top = `${cursorY}px`;
-            requestAnimationFrame(updateCursor);
-        }
-        updateCursor();
+        </div>
 
-        // --- 2. THREE.JS SCENE SETUP ---
-        const container = document.getElementById('webgl-container');
-        const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x030303, 0.03);
+    </section>
 
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 8);
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        container.appendChild(renderer.domElement);
+    <!-- =========================
+         WORKS
+    ========================== -->
 
-        // --- 3. HIGH-GLOSS METALLIC CHROME MATERIAL ---
-        // Creating a reflective envMap gradient using Canvas Texture for Chrome Reflection
-        const canvas = document.createElement('canvas');
-        canvas.width = 512;
-        canvas.height = 512;
-        const ctx = canvas.getContext('2d');
-        const gradient = ctx.createLinearGradient(0, 0, 0, 512);
-        gradient.addColorStop(0.0, '#ffffff');
-        gradient.addColorStop(0.3, '#888888');
-        gradient.addColorStop(0.5, '#111111');
-        gradient.addColorStop(0.7, '#ffffff');
-        gradient.addColorStop(1.0, '#222222');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, 512, 512);
+    <section id="works">
 
-        const envTexture = new THREE.CanvasTexture(canvas);
-        envTexture.mapping = THREE.EquirectangularReflectionMapping;
+        <div class="works-header">
 
-        const chromeMaterial = new THREE.MeshStandardMaterial({
-            color: 0xffffff,
-            metalness: 1.0,
-            roughness: 0.05,
-            envMap: envTexture,
-            envMapIntensity: 2.5
-        });
+            <div>
+                <div class="section-label">
+                    03 / Selected Work
+                </div>
 
-        // --- 4. 3D OBJECTS (Y2K Chrome Ring / Bulbs / Stars) ---
-        // Main Liquid Chrome Oval Shape (Torus Knot)
-        const chromeShapeGeo = new THREE.TorusKnotGeometry(2.2, 0.35, 128, 32, 2, 3);
-        const chromeMesh = new THREE.Mesh(chromeShapeGeo, chromeMaterial);
-        scene.add(chromeMesh);
+                <h2 class="section-title">
+                    Projects
+                </h2>
+            </div>
 
-        // Floating Y2K 3D Star Objects
-        function createStarGeometry() {
-            const shape = new THREE.Shape();
-            const points = 5;
-            const outerRadius = 0.8;
-            const innerRadius = 0.3;
-            
-            for (let i = 0; i < points * 2; i++) {
-                const radius = i % 2 === 0 ? outerRadius : innerRadius;
-                const angle = (i / (points * 2)) * Math.PI * 2;
-                const x = Math.cos(angle) * radius;
-                const y = Math.sin(angle) * radius;
-                if (i === 0) shape.moveTo(x, y);
-                else shape.lineTo(x, y);
-            }
-            shape.closePath();
+            <p class="works-note">
+                A selection of personal projects, experiments,
+                illustrations and 3D work. Replace these placeholders
+                with your actual portfolio pieces.
+            </p>
 
-            const extrudeSettings = { depth: 0.2, bevelEnabled: true, bevelSegments: 3, steps: 1, bevelSize: 0.1, bevelThickness: 0.1 };
-            return new THREE.ExtrudeGeometry(shape, extrudeSettings);
-        }
+        </div>
 
-        const starGeo = createStarGeometry();
-        const starMesh1 = new THREE.Mesh(starGeo, chromeMaterial);
-        starMesh1.position.set(-3.5, 2.2, -1);
-        starMesh1.scale.set(0.8, 0.8, 0.8);
-        scene.add(starMesh1);
 
-        const starMesh2 = new THREE.Mesh(starGeo, chromeMaterial);
-        starMesh2.position.set(3.5, -2.0, -1);
-        starMesh2.scale.set(0.6, 0.6, 0.6);
-        scene.add(starMesh2);
+        <div class="works-grid">
 
-        // Hanging Chrome Bulbs (Right Top corner like Canva reference)
-        const bulbGroup = new THREE.Group();
-        for (let i = 0; i < 3; i++) {
-            const bulbGeo = new THREE.SphereGeometry(0.25, 32, 32);
-            const bulbMesh = new THREE.Mesh(bulbGeo, chromeMaterial);
-            bulbMesh.position.set(i * 0.4, -i * 0.3, 0);
-            bulbGroup.add(bulbMesh);
-        }
-        bulbGroup.position.set(3.2, 2.8, 0);
-        scene.add(bulbGroup);
+            <!-- PROJECT 01 -->
 
-        // --- 5. LIGHTING ---
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            <article class="work">
+
+                <div class="work-image">
+                    3D
+                </div>
+
+                <div class="work-info">
+
+                    <div class="work-number">
+                        PROJECT 01
+                    </div>
+
+                    <h3 class="work-title">
+                        3D Modeling
+                    </h3>
+
+                    <p class="work-description">
+                        A selection of 3D modeling experiments,
+                        environments, props, or character work.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 02 -->
+
+            <article class="work">
+
+                <div class="work-image">
+                    MANGA
+                </div>
+
+                <div class="work-info">
+
+                    <div class="work-number">
+                        PROJECT 02
+                    </div>
+
+                    <h3 class="work-title">
+                        Manga Illustration
+                    </h3>
+
+                    <p class="work-description">
+                        Character illustrations, manga panels,
+                        visual experiments and personal artwork.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 03 -->
+
+            <article class="work">
+
+                <div class="work-image">
+                    ANIM
+                </div>
+
+                <div class="work-info">
+
+                    <div class="work-number">
+                        PROJECT 03
+                    </div>
+
+                    <h3 class="work-title">
+                        Animation
+                    </h3>
+
+                    <p class="work-description">
+                        Short animation experiments exploring movement,
+                        timing, character acting and visual storytelling.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 04 -->
+
+            <article class="work">
+
+                <div class="work-image">
+                    ART
+                </div>
+
+                <div class="work-info">
+
+                    <div class="work-number">
+                        PROJECT 04
+                    </div>
+
+                    <h3 class="work-title">
+                        Visual Development
+                    </h3>
+
+                    <p class="work-description">
+                        Character concepts, environments and visual
+                        ideas developed through drawing and 3D work.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================== -->
+
+    <section id="contact">
+
+        <div class="section-label">
+            04 / Contact
+        </div>
+
+        <h2 class="contact-title">
+            Let's make<br>
+            <span class="muted">something.</span>
+        </h2>
+
+        <p class="contact-description">
+            I am interested in creative projects involving illustration,
+            animation, 3D modeling and visual development.
+        </p>
+
+        <div class="contact-links">
+
+            <!-- Replace these with your real links -->
+
+            <a
+                class="contact-link"
+                href="mailto:your.email@example.com"
+            >
+                Email
+            </a>
+
+            <a
+                class="contact-link"
+                href="#"
+            >
+                ArtStation
+            </a>
+
+            <a
+                class="contact-link"
+                href="#"
+            >
+                Instagram
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+        <div>
+            Takdanai Ramchuen
+        </div>
+
+        <div>
+            Creative Portfolio
+        </div>
+    </footer>
+
+
+    <!-- =========================
+         THREE.JS
+    ========================== -->
+
+    <script type="module">
+
+        import * as THREE from
+            "https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.module.js";
+
+
+        /* =========================
+           SCENE
+        ========================== */
+
+        const container =
+            document.getElementById("three-container");
+
+        const scene =
+            new THREE.Scene();
+
+
+        /* =========================
+           CAMERA
+        ========================== */
+
+        const camera =
+            new THREE.PerspectiveCamera(
+                45,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                100
+            );
+
+        camera.position.z = 8;
+
+
+        /* =========================
+           RENDERER
+        ========================== */
+
+        const renderer =
+            new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: true
+            });
+
+        renderer.setPixelRatio(
+            Math.min(window.devicePixelRatio, 2)
+        );
+
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
+
+        renderer.outputColorSpace =
+            THREE.SRGBColorSpace;
+
+        container.appendChild(
+            renderer.domElement
+        );
+
+
+        /* =========================
+           LIGHT
+        ========================== */
+
+        const ambientLight =
+            new THREE.AmbientLight(
+                0xffffff,
+                0.6
+            );
+
         scene.add(ambientLight);
 
-        const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.5);
-        dirLight1.position.set(5, 10, 7);
-        scene.add(dirLight1);
 
-        const dirLight2 = new THREE.DirectionalLight(0xffffff, 1.5);
-        dirLight2.position.set(-5, -5, -5);
-        scene.add(dirLight2);
+        const pointLight =
+            new THREE.PointLight(
+                0xffffff,
+                30,
+                30
+            );
 
-        // --- 6. SCROLL & MOUSE ANIMATION LOGIC ---
-        let targetScrollY = 0;
+        pointLight.position.set(
+            2,
+            3,
+            5
+        );
 
-        window.addEventListener('scroll', () => {
-            targetScrollY = window.scrollY;
-        });
+        scene.add(pointLight);
+
+
+        /* =========================
+           MAIN OBJECT
+        ========================= */
+
+        const geometry =
+            new THREE.IcosahedronGeometry(
+                2.1,
+                2
+            );
+
+        const material =
+            new THREE.MeshPhysicalMaterial({
+                color: 0xaaaaaa,
+                roughness: 0.28,
+                metalness: 0.65,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.42
+            });
+
+        const mainObject =
+            new THREE.Mesh(
+                geometry,
+                material
+            );
+
+        mainObject.position.set(
+            2.8,
+            0.2,
+            -1
+        );
+
+        scene.add(mainObject);
+
+
+        /* =========================
+           SECOND OBJECT
+        ========================= */
+
+        const geometry2 =
+            new THREE.TorusKnotGeometry(
+                1.15,
+                0.035,
+                140,
+                16
+            );
+
+        const material2 =
+            new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.28,
+                wireframe: true
+            });
+
+        const secondaryObject =
+            new THREE.Mesh(
+                geometry2,
+                material2
+            );
+
+        secondaryObject.position.set(
+            -2.8,
+            1.8,
+            -3
+        );
+
+        secondaryObject.scale.setScalar(
+            0.8
+        );
+
+        scene.add(
+            secondaryObject
+        );
+
+
+        /* =========================
+           FLOATING PARTICLES
+        ========================== */
+
+        const particleCount = 800;
+
+        const positions =
+            new Float32Array(
+                particleCount * 3
+            );
+
+        for (
+            let i = 0;
+            i < particleCount;
+            i++
+        ) {
+
+            positions[i * 3] =
+                (Math.random() - 0.5) * 18;
+
+            positions[i * 3 + 1] =
+                (Math.random() - 0.5) * 12;
+
+            positions[i * 3 + 2] =
+                (Math.random() - 0.5) * 12;
+        }
+
+
+        const particleGeometry =
+            new THREE.BufferGeometry();
+
+        particleGeometry.setAttribute(
+            "position",
+            new THREE.BufferAttribute(
+                positions,
+                3
+            )
+        );
+
+
+        const particleMaterial =
+            new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.018,
+                transparent: true,
+                opacity: 0.45
+            });
+
+
+        const particles =
+            new THREE.Points(
+                particleGeometry,
+                particleMaterial
+            );
+
+        scene.add(particles);
+
+
+        /* =========================
+           MOUSE
+        ========================== */
+
+        const mouse = {
+            x: 0,
+            y: 0
+        };
+
+        window.addEventListener(
+            "mousemove",
+            (event) => {
+
+                mouse.x =
+                    (event.clientX /
+                        window.innerWidth) *
+                    2 - 1;
+
+                mouse.y =
+                    -(
+                        event.clientY /
+                        window.innerHeight
+                    ) *
+                    2 + 1;
+            }
+        );
+
+
+        /* =========================
+           SCROLL
+        ========================== */
+
+        let scrollY = 0;
+
+        window.addEventListener(
+            "scroll",
+            () => {
+
+                scrollY =
+                    window.scrollY;
+            }
+        );
+
+
+        /* =========================
+           ANIMATION
+        ========================== */
+
+        const clock =
+            new THREE.Clock();
+
 
         function animate() {
-            requestAnimationFrame(animate);
 
-            const scrollPercent = targetScrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            requestAnimationFrame(
+                animate
+            );
 
-            // Rotate Main Chrome Shape based on Scroll and Time
-            chromeMesh.rotation.x = scrollPercent * Math.PI * 2 + Date.now() * 0.0005;
-            chromeMesh.rotation.y = scrollPercent * Math.PI * 3 + Date.now() * 0.0008;
+            const elapsed =
+                clock.getElapsedTime();
 
-            // Mouse Parallax for Objects
-            const targetX = (mouseX / window.innerWidth - 0.5) * 1.5;
-            const targetY = -(mouseY / window.innerHeight - 0.5) * 1.5;
 
-            chromeMesh.position.x += (targetX - chromeMesh.position.x) * 0.05;
-            chromeMesh.position.y += (targetY - chromeMesh.position.y) * 0.05;
+            /* Main object */
 
-            // Stars rotation
-            starMesh1.rotation.z += 0.01;
-            starMesh2.rotation.z -= 0.012;
+            mainObject.rotation.x =
+                elapsed * 0.12;
 
-            // Camera Zoom Effect on Scroll
-            camera.position.z = 8 - (scrollPercent * 3);
+            mainObject.rotation.y =
+                elapsed * 0.18;
 
-            renderer.render(scene, camera);
+
+            mainObject.position.y =
+                0.2 +
+                Math.sin(elapsed * 0.6) *
+                0.15;
+
+
+            /* Secondary object */
+
+            secondaryObject.rotation.x =
+                elapsed * 0.15;
+
+            secondaryObject.rotation.y =
+                elapsed * 0.22;
+
+
+            secondaryObject.position.y =
+                1.8 +
+                Math.sin(elapsed * 0.7) *
+                0.25;
+
+
+            /* Particles */
+
+            particles.rotation.y =
+                elapsed * 0.008;
+
+            particles.rotation.x =
+                Math.sin(elapsed * 0.1) *
+                0.03;
+
+
+            /* Mouse parallax */
+
+            const targetX =
+                mouse.x * 0.35;
+
+            const targetY =
+                mouse.y * 0.25;
+
+
+            camera.position.x +=
+                (
+                    targetX -
+                    camera.position.x
+                ) * 0.025;
+
+            camera.position.y +=
+                (
+                    targetY -
+                    camera.position.y
+                ) * 0.025;
+
+
+            /* Scroll movement */
+
+            mainObject.position.y +=
+                scrollY * 0.00015;
+
+            secondaryObject.position.y +=
+                scrollY * 0.00008;
+
+
+            camera.lookAt(
+                0,
+                0,
+                0
+            );
+
+
+            renderer.render(
+                scene,
+                camera
+            );
         }
+
 
         animate();
 
-        // Window Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+
+        /* =========================
+           RESIZE
+        ========================== */
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                camera.aspect =
+                    window.innerWidth /
+                    window.innerHeight;
+
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(
+                    window.innerWidth,
+                    window.innerHeight
+                );
+            }
+        );
+
     </script>
+
 </body>
 </html>
