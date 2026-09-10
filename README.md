@@ -1,14 +1,14 @@
-RATTASURD SIRASEN
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rattasurd Sirasen— Creative Portfolio</title>
+    <title>Rattasurd Sirasen — Creative Portfolio</title>
 
     <meta
         name="description"
-        content="Portfolio of <strong>RATTASURD SIRASEN</strong> — 3D modeling , animation , character design and visual development."
+        content="Portfolio of Rattasurd Sirasen — 3D modeling, photography, animation, character design and visual development."
     >
 
     <style>
@@ -590,7 +590,7 @@ RATTASURD SIRASEN
     <!-- Navigation -->
     <nav>
         <a href="#home" class="logo">
-            TR
+            RS
         </a>
 
         <ul class="nav-links">
@@ -618,7 +618,7 @@ RATTASURD SIRASEN
         </h1>
 
         <p class="hero-description">
-            I am a creative individual with strong skills in<strong> 3D modeling and photography</strong>.
+            I am a creative individual with strong skills in <strong>3D modeling and photography</strong>.
             I am interested in bringing the real world into the 3D world,
             using photography as a way to observe, capture, and understand real-life details.
             I enjoy transforming these observations into 3D models
@@ -672,7 +672,7 @@ RATTASURD SIRASEN
                     </div>
 
                     <div class="detail-value">
-                        I am interested in bringing the real world into the 3D world
+                        Bringing the real world into the 3D world
                     </div>
                 </div>
 
@@ -682,7 +682,7 @@ RATTASURD SIRASEN
                     </div>
 
                     <div class="detail-value">
-                        3d Visual Development & Creative Work
+                        3D Visual Development &amp; Creative Work
                     </div>
                 </div>
 
@@ -764,8 +764,9 @@ RATTASURD SIRASEN
             </div>
 
             <p class="works-note">
-                A selection of personal projects & group projects, experiments,
-                illustrations and 3D work.
+                A selection of personal projects, experiments,
+                illustrations and 3D work. Replace these placeholders
+                with your actual portfolio pieces.
             </p>
 
         </div>
@@ -773,7 +774,7 @@ RATTASURD SIRASEN
 
         <div class="works-grid">
 
-            <!-- GROUP PROJECT -->
+            <!-- PROJECT 01 -->
 
             <article class="work">
 
@@ -784,16 +785,16 @@ RATTASURD SIRASEN
                 <div class="work-info">
 
                     <div class="work-number">
-                        PROJECT " GHOST RECIPE "
+                        PROJECT 01
                     </div>
 
                     <h3 class="work-title">
-                        3D Visual Asset
+                        3D Modeling
                     </h3>
 
                     <p class="work-description">
-                        A selection of 3D modeling experiments
-                        environments, props, or character work
+                        A selection of 3D modeling experiments,
+                        environments, props, or character work.
                     </p>
 
                 </div>
@@ -801,12 +802,12 @@ RATTASURD SIRASEN
             </article>
 
 
-            <!-- PERSONAL PROJECT -->
+            <!-- PROJECT 02 -->
 
             <article class="work">
 
                 <div class="work-image">
-                    HARD SURFACE
+                    MANGA
                 </div>
 
                 <div class="work-info">
@@ -972,6 +973,10 @@ RATTASURD SIRASEN
         const scene =
             new THREE.Scene();
 
+        // Fog matches the page background so the checkerboard floor
+        // fades smoothly into black at a distance instead of hard-cutting.
+        scene.fog = new THREE.Fog(0x070707, 20, 85);
+
 
         /* =========================
            CAMERA
@@ -982,7 +987,7 @@ RATTASURD SIRASEN
                 45,
                 window.innerWidth / window.innerHeight,
                 0.1,
-                100
+                200
             );
 
         camera.position.z = 8;
@@ -1042,6 +1047,54 @@ RATTASURD SIRASEN
         );
 
         scene.add(pointLight);
+
+
+        /* =========================
+           CHECKERBOARD FLOOR
+           (the mouse/scroll trick you liked from the older build)
+        ========================= */
+
+        function makeCheckerTexture(){
+            const s = 128;
+            const c = document.createElement("canvas");
+            c.width = s;
+            c.height = s;
+            const ctx = c.getContext("2d");
+
+            ctx.fillStyle = "#060606";
+            ctx.fillRect(0, 0, s, s);
+
+            ctx.fillStyle = "#eef0f2";
+            ctx.fillRect(0, 0, s / 2, s / 2);
+            ctx.fillRect(s / 2, s / 2, s / 2, s / 2);
+
+            const tex = new THREE.CanvasTexture(c);
+            tex.wrapS = THREE.RepeatWrapping;
+            tex.wrapT = THREE.RepeatWrapping;
+            tex.repeat.set(22, 70);
+            return tex;
+        }
+
+        const floorGeometry =
+            new THREE.PlaneGeometry(60, 190);
+
+        const floorMaterial =
+            new THREE.MeshBasicMaterial({
+                map: makeCheckerTexture(),
+                transparent: true,
+                opacity: 0.85
+            });
+
+        const floor =
+            new THREE.Mesh(
+                floorGeometry,
+                floorMaterial
+            );
+
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.set(0, -4, -55);
+
+        scene.add(floor);
 
 
         /* =========================
@@ -1124,7 +1177,7 @@ RATTASURD SIRASEN
            FLOATING PARTICLES
         ========================== */
 
-        const particleCount = 800;
+        const particleCount = 900;
 
         const positions =
             new Float32Array(
@@ -1138,13 +1191,15 @@ RATTASURD SIRASEN
         ) {
 
             positions[i * 3] =
-                (Math.random() - 0.5) * 18;
+                (Math.random() - 0.5) * 22;
 
             positions[i * 3 + 1] =
-                (Math.random() - 0.5) * 12;
+                (Math.random() - 0.5) * 14;
 
+            // spread particles the length of the scroll journey,
+            // not just around the origin, so they stay visible throughout
             positions[i * 3 + 2] =
-                (Math.random() - 0.5) * 12;
+                (Math.random() - 0.5) * 110;
         }
 
 
@@ -1210,16 +1265,24 @@ RATTASURD SIRASEN
            SCROLL
         ========================== */
 
-        let scrollY = 0;
+        let scrollProgress = 0;
+
+        function updateScrollProgress(){
+            const max =
+                document.documentElement.scrollHeight -
+                window.innerHeight;
+
+            scrollProgress =
+                max > 0 ? window.scrollY / max : 0;
+        }
 
         window.addEventListener(
             "scroll",
-            () => {
-
-                scrollY =
-                    window.scrollY;
-            }
+            updateScrollProgress,
+            { passive: true }
         );
+
+        updateScrollProgress();
 
 
         /* =========================
@@ -1228,6 +1291,9 @@ RATTASURD SIRASEN
 
         const clock =
             new THREE.Clock();
+
+        const lookTarget =
+            new THREE.Vector3();
 
 
         function animate() {
@@ -1239,8 +1305,20 @@ RATTASURD SIRASEN
             const elapsed =
                 clock.getElapsedTime();
 
+            // Camera flies forward over the checkerboard as the page
+            // scrolls, instead of sitting still the whole way down.
+            const targetZ =
+                8 - scrollProgress * 60;
 
-            /* Main object */
+            camera.position.z +=
+                (targetZ - camera.position.z) * 0.06;
+
+
+            /* Main object — now drifts along with the camera so it
+               stays in view the whole way down, not just at the top */
+
+            mainObject.position.z =
+                camera.position.z - 9;
 
             mainObject.rotation.x =
                 elapsed * 0.12;
@@ -1248,21 +1326,22 @@ RATTASURD SIRASEN
             mainObject.rotation.y =
                 elapsed * 0.18;
 
-
             mainObject.position.y =
                 0.2 +
                 Math.sin(elapsed * 0.6) *
                 0.15;
 
 
-            /* Secondary object */
+            /* Secondary object — same treatment */
+
+            secondaryObject.position.z =
+                camera.position.z - 12;
 
             secondaryObject.rotation.x =
                 elapsed * 0.15;
 
             secondaryObject.rotation.y =
                 elapsed * 0.22;
-
 
             secondaryObject.position.y =
                 1.8 +
@@ -1286,8 +1365,7 @@ RATTASURD SIRASEN
                 mouse.x * 0.35;
 
             const targetY =
-                mouse.y * 0.25;
-
+                mouse.y * 0.25 + 1;
 
             camera.position.x +=
                 (
@@ -1302,20 +1380,16 @@ RATTASURD SIRASEN
                 ) * 0.025;
 
 
-            /* Scroll movement */
+            /* Look slightly ahead of wherever the camera currently is,
+               so the checkerboard always recedes toward the horizon */
 
-            mainObject.position.y +=
-                scrollY * 0.00015;
-
-            secondaryObject.position.y +=
-                scrollY * 0.00008;
-
-
-            camera.lookAt(
-                0,
-                0,
-                0
+            lookTarget.set(
+                camera.position.x * 0.4,
+                camera.position.y - 2,
+                camera.position.z - 25
             );
+
+            camera.lookAt(lookTarget);
 
 
             renderer.render(
