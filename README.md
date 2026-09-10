@@ -8,7 +8,7 @@ RATTASURD SIRASEN
 
     <meta
         name="description"
-        content="Portfolio of <strong>RATTASURD SIRASEN</strong> — 3D modeling, 3d print , animation, character design and visual development."
+        content="Portfolio of <strong>RATTASURD SIRASEN</strong> — 3D modeling , animation , character design and visual development."
     >
 
     <style>
