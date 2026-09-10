@@ -130,7 +130,7 @@ RATTASURD SIRASEN
         }
 
         .section-label {
-            font-size: 30px;
+            font-size: 11px;
             letter-spacing: 0.25em;
             text-transform: uppercase;
             opacity: 0.45;
