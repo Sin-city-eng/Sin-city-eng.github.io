@@ -8,7 +8,7 @@ RATTASURD SIRASEN
 
     <meta
         name="description"
-        content="Portfolio of RATTASURD SIRASEN — 3D modeling, manga illustration, animation, character design and visual development."
+        content="Portfolio of <strong>RATTASURD SIRASEN</strong> — 3D modeling, 3d print , animation, character design and visual development."
     >
 
     <style>
@@ -613,16 +613,16 @@ RATTASURD SIRASEN
         </div>
 
         <h1 class="hero-name">
-            Takdanai
+            Rattasurd
             <span>Ramchuen</span>
         </h1>
 
         <p class="hero-description">
-            I am a creative individual with experience in 3D modeling
-            and a strong interest in manga drawing and animation.
-            I enjoy developing visual ideas through illustration,
-            character design, and 3D work, while continuously improving
-            my technical and artistic skills.
+            I am a creative individual with strong skills in<strong> 3D modeling and photography</strong>.
+            I am interested in bringing the real world into the 3D world,
+            using photography as a way to observe, capture, and understand real-life details.
+            I enjoy transforming these observations into 3D models
+            while exploring the connection between reality and digital art.
         </p>
 
         <a href="#works" class="hero-button">
@@ -658,12 +658,12 @@ RATTASURD SIRASEN
             <div class="about-details">
 
                 <p class="about-text">
-                    I enjoy turning ideas into visual work through
-                    <strong>illustration, character design, animation,
-                    and 3D modeling.</strong>
+                    I enjoy turning real-world observations into visual work through
+                    <strong>photography and 3D modeling.</strong>
+                    I am interested in bringing the details and perspectives
+                    of the real world into the 3D world.
                     My goal is to continue developing both my artistic
-                    and technical skills while building a portfolio
-                    of meaningful visual projects.
+                    and technical skills while creating meaningful visual projects.
                 </p>
 
                 <div class="detail">
@@ -672,7 +672,7 @@ RATTASURD SIRASEN
                     </div>
 
                     <div class="detail-value">
-                        Illustration / Animation / 3D
+                        I am interested in bringing the real world into the 3D world
                     </div>
                 </div>
 
@@ -682,7 +682,7 @@ RATTASURD SIRASEN
                     </div>
 
                     <div class="detail-value">
-                        Visual Development & Creative Work
+                        3d Visual Development & Creative Work
                     </div>
                 </div>
 
