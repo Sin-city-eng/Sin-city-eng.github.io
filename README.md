@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+RATTASURD SIRASEN
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -95,7 +95,7 @@
         }
 
         .logo {
-            font-size: 15px;
+            font-size: 50px;
             font-weight: 700;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -130,7 +130,7 @@
         }
 
         .section-label {
-            font-size: 11px;
+            font-size: 30px;
             letter-spacing: 0.25em;
             text-transform: uppercase;
             opacity: 0.45;
