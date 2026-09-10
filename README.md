@@ -8,7 +8,7 @@ RATTASURD SIRASEN
 
     <meta
         name="description"
-        content="Portfolio of Takdanai Ramchuen — 3D modeling, manga illustration, animation, character design and visual development."
+        content="Portfolio of RATTASURD SIRASEN — 3D modeling, manga illustration, animation, character design and visual development."
     >
 
     <style>
