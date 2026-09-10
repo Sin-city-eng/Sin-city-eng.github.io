@@ -95,7 +95,7 @@ RATTASURD SIRASEN
         }
 
         .logo {
-            font-size: 50px;
+            font-size: 15px;
             font-weight: 700;
             letter-spacing: 0.18em;
             text-transform: uppercase;
