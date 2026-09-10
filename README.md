@@ -614,7 +614,7 @@ RATTASURD SIRASEN
 
         <h1 class="hero-name">
             Rattasurd
-            <span>Ramchuen</span>
+            <span>Sirasen</span>
         </h1>
 
         <p class="hero-description">
@@ -764,9 +764,8 @@ RATTASURD SIRASEN
             </div>
 
             <p class="works-note">
-                A selection of personal projects, experiments,
-                illustrations and 3D work. Replace these placeholders
-                with your actual portfolio pieces.
+                A selection of personal projects & group projects, experiments,
+                illustrations and 3D work.
             </p>
 
         </div>
@@ -774,7 +773,7 @@ RATTASURD SIRASEN
 
         <div class="works-grid">
 
-            <!-- PROJECT 01 -->
+            <!-- GROUP PROJECT -->
 
             <article class="work">
 
@@ -785,16 +784,16 @@ RATTASURD SIRASEN
                 <div class="work-info">
 
                     <div class="work-number">
-                        PROJECT 01
+                        PROJECT " GHOST RECIPE "
                     </div>
 
                     <h3 class="work-title">
-                        3D Modeling
+                        3D Visual Asset
                     </h3>
 
                     <p class="work-description">
-                        A selection of 3D modeling experiments,
-                        environments, props, or character work.
+                        A selection of 3D modeling experiments
+                        environments, props, or character work
                     </p>
 
                 </div>
@@ -802,12 +801,12 @@ RATTASURD SIRASEN
             </article>
 
 
-            <!-- PROJECT 02 -->
+            <!-- PERSONAL PROJECT -->
 
             <article class="work">
 
                 <div class="work-image">
-                    MANGA
+                    HARD SURFACE
                 </div>
 
                 <div class="work-info">
@@ -944,7 +943,7 @@ RATTASURD SIRASEN
 
     <footer>
         <div>
-            Takdanai Ramchuen
+            Rattasurd Sirasen
         </div>
 
         <div>
